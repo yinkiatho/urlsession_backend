@@ -1,6 +1,7 @@
 import json
 from typing import Dict, List
 import re
+import sys
 doc = {
     "classes": [
         {
@@ -59,7 +60,7 @@ def getNextProbableWords(classes: List[Dict],
     #print("here")
     # Create a dictionary to store the class mappings
     class_dict = {}
-    print(classes)
+    #print(classes)
     for class_obj in classes:
         class_dict.update(class_obj)
     # print(class_dict)
@@ -124,5 +125,23 @@ def getNextProbableWords(classes: List[Dict],
     return results
 
 print(getNextProbableWords(doc["classes"], doc["statements"]))
+
+
+if __name__ == "__main__":
+    # Check if the script is being run directly
+    if len(sys.argv) != 2:
+        print("Usage: python my_script.py <JSON data>")
+        sys.exit(1)
+
+    # Parse the JSON data from the command line argument
+    json_data = sys.argv[1]
+
+    try:
+        data = json.loads(json_data)
+        result = getNextProbableWords(data["classes"], data["statements"])
+        print(result)  # Print the result to stdout
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        sys.exit(1)
 # Example usage with generic JSON data and statements
 # print(json.dumps(result, indent=2))

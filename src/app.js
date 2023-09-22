@@ -17,12 +17,13 @@ app.post("/lazy-developer", (req, res) => {
     //run lazy-developer.py with json input from req.body
     //res.status(200).json({ success: 'Hello Server' });
     requestData = req.body
-    console.log(requestData)
+    //console.log(requestData)
     const pythonProcess = spawn('python', ['src/lazy_dev.py', JSON.stringify(requestData)]);
 
     // Handle data from the Python script
     pythonProcess.stdout.on('data', (data) => {
         //console.log(`Python Output: ${data}`);
+        console.log(`Python Output: ${data.toString()}`);
         res.json( JSON.stringify(data.toString()) );
     });
 
