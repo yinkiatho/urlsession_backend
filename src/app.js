@@ -4,7 +4,7 @@ const upload = require('./helpers/multer_config').upload;
 const { spawn } = require('child_process');
 
 //run python script
-const {PythonShell} = require('python-shell');
+const { PythonShell } = require('python-shell');
 
 
 app.use(express.json());
@@ -21,8 +21,8 @@ app.post("/lazy-developer", (req, res) => {
 
     // Handle data from the Python script
     pythonProcess.stdout.on('data', (data) => {
-    console.log(`Python Output: ${data}`);
-    res.json({ message: data.toString() });
+        console.log(`Python Output: ${data}`);
+        res.json({ message: data.toString() });
     });
 
   // Handle errors (if any)
