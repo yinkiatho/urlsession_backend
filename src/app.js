@@ -22,8 +22,8 @@ app.post("/lazy-developer", (req, res) => {
 
     // Handle data from the Python script
     pythonProcess.stdout.on('data', (data) => {
-        console.log(`Python Output: ${data}`);
-        res.json({ message: data.toString() });
+        //console.log(`Python Output: ${data}`);
+        res.json( JSON.stringify(data.toString()) );
     });
 
   // Handle errors (if any)

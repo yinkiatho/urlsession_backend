@@ -120,7 +120,7 @@ def getNextProbableWords(classes: List[Dict],
     # Process each statement
     for statement in statements:
         find_probable_words(statement)
-
+    #print(results)
     return results
 
 print(getNextProbableWords(doc["classes"], doc["statements"]))
