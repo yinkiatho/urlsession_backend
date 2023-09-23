@@ -70,7 +70,7 @@ def generate(requests):
     #filter out only days with lessons, keeping only keyid in the list
     available_days = {k: [x[0] for x in v] for k, v in available_days.items()}
     return available_days
-print(generate(test))
+#print(generate(test))
 
 
 if __name__ == "__main__":
