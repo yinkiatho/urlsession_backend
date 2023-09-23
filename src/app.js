@@ -22,9 +22,11 @@ app.post("/lazy-developer", (req, res) => {
 
     // Handle data from the Python script
     pythonProcess.stdout.on('data', (data) => {
+        const jsonString = data.toString().replace(/'/g, '"');
         //console.log(`Python Output: ${data}`);
-        console.log(`Python Output: ${data.toString()}`);
-        res.json( JSON.stringify(data.toString()) );
+        //console.log(`Python Output: ${data.toString()}`);
+        output = JSON.parse(jsonString)
+        res.json(output);
     });
 
   // Handle errors (if any)

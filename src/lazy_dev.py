@@ -124,7 +124,7 @@ def getNextProbableWords(classes: List[Dict],
     #print(results)
     return results
 
-print(getNextProbableWords(doc["classes"], doc["statements"]))
+#print(getNextProbableWords(doc["classes"], doc["statements"]))
 
 
 if __name__ == "__main__":
