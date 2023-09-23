@@ -53,7 +53,7 @@ app.post("/digital-colony", (req, res) => {
 
   // Handle data from the Python script
   pythonProcess.stdout.on("data", (data) => {
-    console.log(data.toString());
+    //console.log(data.toString());
     const jsonString = data.toString().replace(/'/g, '"');
     //console.log(`Python Output: ${data}`);
     //console.log(`Python Output: ${data.toString()}`);
