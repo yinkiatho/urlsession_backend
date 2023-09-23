@@ -146,4 +146,28 @@ app.post("/greedymonkey", (req, res) => {
 });
 
 
+app.post("/calendar-scheduling", (req, res) => {
+  //parse text data as json file
+  //console.log(req)
+  requestData = req.body;
+  //console.log(requestData)
+  const pythonProcess = spawn("python", [
+    "src/calendar_schedule.py",
+    JSON.stringify(requestData),
+  ]);
+
+  // Handle data from the Python script
+  pythonProcess.stdout.on("data", (data) => {
+    //console.log(`Python Output: ${data}`);
+    res.type("text/plain").send(data.toString());
+  });
+
+  // Handle errors (if any)
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`Error: ${data}`);
+    res.status(500).json({ error: "An error occurred" });
+  });
+});
+
+
 module.exports = app;
