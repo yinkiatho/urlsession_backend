@@ -9,7 +9,7 @@ const { PythonShell } = require('python-shell');
 
 const fs = require("fs");
 
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "100mb" }));
 
 app.get('/', (req, res, next) => {
     res.status(200).json({ success: 'Hello Server' });
