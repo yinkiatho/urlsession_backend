@@ -6,6 +6,7 @@ import sys
 
 def railway_combination(length, track_pieces):
   
+  
 
   # Create a memoization table to store the results of previous calculations.
   #memo = {}
@@ -34,13 +35,13 @@ def railway_combination(length, track_pieces):
 
 
 def evaluate_railway_combinations(json_input):
-
-  inputs = json.loads(json_input)
+  #print(json_input)
+  inputs = json_input
   outputs = []
   #print(inputs)
 
   for input in inputs:
-    input = input.split(", ")
+    #input = input.split(", ")
     #print(input)
     length = int(input[0])
     num_track_pieces = int(input[1])
@@ -64,9 +65,11 @@ if __name__ == '__main__':
     # Parse the JSON data from the command line argument
   json_input = sys.argv[1]
   try:
-        data = json.loads(json_input)
-        result = evaluate_railway_combinations(data)
-        print(result)  # Print the result to stdout
+      data = [list(map(int, item.split(', ')))
+                           for item in json.loads(json_input)]
+    #print(data)
+      result = evaluate_railway_combinations(data)
+      print(result)  # Print the result to stdout
   except Exception as e:
         print(f"Error: {str(e)}")
         sys.exit(1)
