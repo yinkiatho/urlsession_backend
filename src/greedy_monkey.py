@@ -151,7 +151,7 @@ if __name__ == "__main__":
     #print(json_data)
     try:
         data = json.loads(json_data)
-        result = max_fruit_value(data)
+        result = maxValue(data)
         print(result)  # Print the result to stdout
     except Exception as e:
         print(f"Error: {str(e)}")
