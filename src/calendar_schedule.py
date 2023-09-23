@@ -67,7 +67,7 @@ def generate(requests):
     
     #filter out only days with lessons, keeping only keyid in the list
     available_days = {k: [x[0] for x in v] for k, v in available_days.items() if v}
-    return json.dumps(available_days)
+    return available_days
 #print(generate(test))
 
 
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     try:
         data = json.loads(json_data)
         result = generate(data)
-        print(result)  # Print the result to stdout
+        print(json.dumps(result), flush=True)  # Print the result to stdout
     except Exception as e:
         print(f"Error: {str(e)}")
         sys.exit(1)
