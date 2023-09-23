@@ -158,8 +158,11 @@ app.post("/calendar-scheduling", (req, res) => {
 
   // Handle data from the Python script
   pythonProcess.stdout.on("data", (data) => {
+    const jsonString = data.toString().replace(/'/g, '"');
     //console.log(`Python Output: ${data}`);
-    res.type("text/plain").send(data.toString());
+    //console.log(`Python Output: ${data.toString()}`);
+    output = JSON.parse(jsonString);
+    res.json(output);
   });
 
   // Handle errors (if any)
