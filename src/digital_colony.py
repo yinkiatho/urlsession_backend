@@ -4,10 +4,9 @@ import re
 import sys
 
 input = [
-   # { generations: 10, colony: "1000"},
-  #  { generations: 50, colony: "1000"},
+    {"generations": 10, "colony": "1000"},
+    {"generations": 50, "colony": "1000"}
 ]
-
 test = {
     "generations": 4,
     "colony": "914"
@@ -59,7 +58,7 @@ def getTotalWeight(obj):
         
     return sum([int(x) for x in colony])
         
-
+#print(getTotalWeight(input[0]))
 #print(getTotalWeight(test))
 if __name__ == "__main__":
     # Check if the script is being run directly

@@ -22,6 +22,7 @@ input2 = {
 }
 
 def maxValue(obj):
+    print(obj)
     maxWeight = obj["w"]
     volume = obj["v"]
     fruits = obj["f"]
@@ -74,7 +75,7 @@ if __name__ == "__main__":
 
     # Parse the JSON data from the command line argument
     json_data = sys.argv[1]
-
+    print(json_data)
     try:
         data = json.loads(json_data)
         result = maxValue(data)

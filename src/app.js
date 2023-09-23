@@ -38,7 +38,7 @@ app.post("/lazy-developer", (req, res) => {
 });
 
 
-app.post("/greedyMonkey", (req, res) => {
+app.post("/greedymonkey", (req, res) => {
 
     let requestData = "";
 
@@ -47,6 +47,8 @@ app.post("/greedyMonkey", (req, res) => {
     req.on("data", (chunk) => {
       requestData += chunk; // Collect the chunks of data
     });
+
+    console.log(requestData)
 
     //console.log(requestData)
     const pythonProcess = spawn('python', ['src/greedy_monkey.py', JSON.stringify(requestData)]);
@@ -67,9 +69,65 @@ app.post("/greedyMonkey", (req, res) => {
 
 app.post("/digital-colony", (req, res) => {
   requestData = req.body;
-  //console.log(requestData)
+  
+  console.log(requestData)
   const pythonProcess = spawn("python", [
     "src/digital_colony.py",
+    JSON.stringify(requestData),
+  ]);
+
+  // Handle data from the Python script
+  pythonProcess.stdout.on("data", (data) => {
+    console.log(data.toString());
+    const jsonString = data.toString().replace(/'/g, '"');
+    //console.log(`Python Output: ${data}`);
+    //console.log(`Python Output: ${data.toString()}`);
+    output = JSON.parse(jsonString);
+    res.json(output);
+  });
+
+  // Handle errors (if any)
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`Error: ${data}`);
+    res.status(500).json({ error: "An error occurred" });
+  });
+});
+
+
+app.post("/airport", (req, res) => {
+  requestData = req.body;
+
+  console.log(requestData);
+  const pythonProcess = spawn("python", [
+    "src/airport.py",
+    JSON.stringify(requestData),
+  ]);
+
+  // Handle data from the Python script
+  pythonProcess.stdout.on("data", (data) => {
+   console.log(data.toString());
+   const jsonString = data.toString().replace(/'/g, '"');
+   //console.log(`Python Output: ${data}`);
+   //console.log(`Python Output: ${data.toString()}`);
+   output = JSON.parse(jsonString);
+   res.json(data);
+  });
+
+  // Handle errors (if any)
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`Error: ${data}`);
+    res.status(500).json({ error: "An error occurred" });
+  });
+});
+
+
+app.post("/evaluate", (req, res) => {
+  //run lazy-developer.py with json input from req.body
+  //res.status(200).json({ success: 'Hello Server' });
+  requestData = req.body;
+  //console.log(requestData)
+  const pythonProcess = spawn("python", [
+    "src/railway.py",
     JSON.stringify(requestData),
   ]);
 
@@ -88,28 +146,4 @@ app.post("/digital-colony", (req, res) => {
     res.status(500).json({ error: "An error occurred" });
   });
 });
-
-app.post('/upload', upload.array('imageUploads', 10), (req, res) => {
-    const senderName = req.body.fromName;
-
-
-    if (senderName == null || senderName == undefined) {
-        res.status(500).json({ error: `No senderName sent.` });
-        return;
-    }
-
-    if (req.files == null || req.files == undefined) {
-        res.status(500).json({ error: `${senderName} - Image uploads not found.` });
-        return;
-    }
-    else if (req.files.length == 0) {
-        res.status(500).json({ error: `${senderName} - No images sent.` });
-        return;
-    }
-    else {
-        res.status(200).json({ success: `${senderName} - ${req.files.length} images saved.` });
-        return;
-    }
-});
-
 module.exports = app;
