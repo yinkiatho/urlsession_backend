@@ -103,6 +103,7 @@ if __name__ == "__main__":
     try:
         res = []
         data = json.loads(json_data)
+        
         for test_case in data:
             output = execute(prioritisation_function,
                                test_case, test_case["cutOffTime"])
@@ -113,7 +114,7 @@ if __name__ == "__main__":
                 "sortedDepartureTimes": output["prioritised_filtered_list"],
                 "numberOfRequests": output["total_number_of_requests"],  # 4
             })
-        #print(res)  # Print the result to stdout
+        print(res)  # Print the result to stdout
     except Exception as e:
         #print(f"Error: {str(e)}")
         sys.exit(1)

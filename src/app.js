@@ -70,7 +70,7 @@ app.post("/greedymonkey", (req, res) => {
 app.post("/digital-colony", (req, res) => {
   requestData = req.body;
   
-  console.log(requestData)
+  //console.log(requestData)
   const pythonProcess = spawn("python", [
     "src/digital_colony.py",
     JSON.stringify(requestData),
@@ -78,7 +78,7 @@ app.post("/digital-colony", (req, res) => {
 
   // Handle data from the Python script
   pythonProcess.stdout.on("data", (data) => {
-    console.log(data.toString());
+    //console.log(data.toString());
     const jsonString = data.toString().replace(/'/g, '"');
     //console.log(`Python Output: ${data}`);
     //console.log(`Python Output: ${data.toString()}`);
@@ -97,7 +97,7 @@ app.post("/digital-colony", (req, res) => {
 app.post("/airport", (req, res) => {
   requestData = req.body;
 
-  console.log(requestData);
+  //console.log(requestData);
   const pythonProcess = spawn("python", [
     "src/airport.py",
     JSON.stringify(requestData),
@@ -105,12 +105,12 @@ app.post("/airport", (req, res) => {
 
   // Handle data from the Python script
   pythonProcess.stdout.on("data", (data) => {
-   console.log(data.toString());
+   //console.log("here" + data.toString());
    const jsonString = data.toString().replace(/'/g, '"');
    //console.log(`Python Output: ${data}`);
    //console.log(`Python Output: ${data.toString()}`);
    output = JSON.parse(jsonString);
-   res.json(data);
+   res.json(output);
   });
 
   // Handle errors (if any)

@@ -10,7 +10,7 @@ input = [
 test = {
     "generations": 4,
     "colony": "914"
-}
+}   
 
 def getTotalWeight(obj):
     
