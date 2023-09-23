@@ -54,6 +54,7 @@ def generate(requests):
                 
                 available_days[day].append((request["lessonRequestId"], request["duration"], request["potentialEarnings"]))
                 available_days[day].sort(key=lambda x: x[2])
+                break
             
             elif sum([x[1] for x in available_days[day]]) + request["duration"] > max_duration:
                 #iterate through lessons in the day, if duration of lesson is less than current lesson, replace
@@ -62,13 +63,14 @@ def generate(requests):
                         available_days[day][i] = (request["lessonRequestId"], request["duration"], request["potentialEarnings"])
                         available_days[day].sort(key=lambda x: x[2])
                     break
+                break
             else:
                 continue
     
     #filter out only days with lessons, keeping only keyid in the list
-    available_days = {k: [x[0] for x in v] for k, v in available_days.items() if v}
+    available_days = {k: [x[0] for x in v] for k, v in available_days.items() if len(v) > 0}
     return available_days
-#print(generate(test))
+print(generate(test))
 
 
 if __name__ == "__main__":
