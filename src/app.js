@@ -47,7 +47,7 @@ app.post("/greedyMonkey", (req, res) => {
     req.on("data", (chunk) => {
       requestData += chunk; // Collect the chunks of data
     });
-    
+
     //console.log(requestData)
     const pythonProcess = spawn('python', ['src/greedy_monkey.py', JSON.stringify(requestData)]);
 
@@ -62,6 +62,31 @@ app.post("/greedyMonkey", (req, res) => {
     res.status(500).json({ error: 'An error occurred' });
   });
     
+});
+
+
+app.post("/digital-colony", (req, res) => {
+  requestData = req.body;
+  //console.log(requestData)
+  const pythonProcess = spawn("python", [
+    "src/digital_colony.py",
+    JSON.stringify(requestData),
+  ]);
+
+  // Handle data from the Python script
+  pythonProcess.stdout.on("data", (data) => {
+    const jsonString = data.toString().replace(/'/g, '"');
+    //console.log(`Python Output: ${data}`);
+    //console.log(`Python Output: ${data.toString()}`);
+    output = JSON.parse(jsonString);
+    res.json(output);
+  });
+
+  // Handle errors (if any)
+  pythonProcess.stderr.on("data", (data) => {
+    console.error(`Error: ${data}`);
+    res.status(500).json({ error: "An error occurred" });
+  });
 });
 
 app.post('/upload', upload.array('imageUploads', 10), (req, res) => {
