@@ -22,7 +22,7 @@ input2 = {
 }
 
 def maxValue(obj):
-    print(obj)
+    #print(obj)
     maxWeight = obj["w"]
     volume = obj["v"]
     fruits = obj["f"]
@@ -66,7 +66,7 @@ def maxValue(obj):
                 
     return sum([basket[key][2] for key in basket])
                 
-                
+#print(maxValue(input))  
 if __name__ == "__main__":
     # Check if the script is being run directly
     if len(sys.argv) != 2:
@@ -75,7 +75,7 @@ if __name__ == "__main__":
 
     # Parse the JSON data from the command line argument
     json_data = sys.argv[1]
-    print(json_data)
+    #print(json_data)
     try:
         data = json.loads(json_data)
         result = maxValue(data)

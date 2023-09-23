@@ -13,9 +13,8 @@ test = {
 }   
 
 def getTotalWeight(obj):
-    
+    print(obj)
     generations, colony = obj["generations"], obj["colony"]
-    
     def generateNextGeneration(colony):
         weight = sum([int(x) for x in colony])
         
@@ -68,12 +67,13 @@ if __name__ == "__main__":
 
     # Parse the JSON data from the command line argument
     json_data = sys.argv[1]
-
     try:
+        #print(json_data)
         res = []
         data = json.loads(json_data)
-        for obj in data:
-            res.append(str(getTotalWeight(obj)))
+        
+        for i in range(len(data)):
+            res.append(str(getTotalWeight(data[i])))
         print(res)  # Print the result to stdout
     except Exception as e:
         print(f"Error: {str(e)}")
