@@ -22,6 +22,27 @@ input2 = {
     ]
 }
 
+
+def max_fruit_value(obj):
+    
+    w = obj["w"]
+    v = obj["v"]
+    f = obj["f"]
+    n = len(f)
+    dp = [[0] * (v + 1) for _ in range(w + 1)]
+
+    for i in range(n):
+        weight, volume, value = f[i]
+        for weight_limit in range(w, -1, -1):
+            for volume_limit in range(v, -1, -1):
+                if weight_limit >= weight and volume_limit >= volume:
+                    dp[weight_limit][volume_limit] = max(
+                        dp[weight_limit][volume_limit],
+                        dp[weight_limit - weight][volume_limit - volume] + value
+                    )
+
+    return dp[w][v]
+
 def maxValue(obj):
     #print(obj)
     maxWeight = obj["w"]
@@ -67,7 +88,7 @@ def maxValue(obj):
                 
     return sum([basket[key][2] for key in basket])
                 
-print(maxValue(input))  
+#print(maxValue(input))  
 if __name__ == "__main__":
     # Check if the script is being run directly
     if len(sys.argv) != 2:
@@ -79,7 +100,7 @@ if __name__ == "__main__":
     #print(json_data)
     try:
         data = json.loads(json_data)
-        result = maxValue(data)
+        result = max_fruit_value(data)
         print(result)  # Print the result to stdout
     except Exception as e:
         print(f"Error: {str(e)}")

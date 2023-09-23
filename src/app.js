@@ -44,11 +44,11 @@ app.post("/lazy-developer", (req, res) => {
 
 app.post("/digital-colony", (req, res) => {
   requestData = req.body;
-  console.log(requestData)
+  //console.log(JSON.stringify(requestData));
 
   //console.log(requestData)
   const pythonProcess = spawn("python", [
-    "src/digital_colony.py",
+    'src/digital_colony.py',
     JSON.stringify(requestData),
   ]);
 
