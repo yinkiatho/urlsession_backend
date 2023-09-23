@@ -30,7 +30,7 @@ def generate(requests):
     max_duration = 12
     
     #reorder requests by potential earnings
-    requests = list(filter(lambda x: x["duration"] <= max_duration, sorted(requests, key=lambda x: x["potentialEarnings"], reverse=True)))
+    requests.sort(key=lambda x: x["potentialEarnings"], reverse=True)
     
     #create a dictionary of available days, input as tuple of (lessonid, time, potential earnings)
     available_days = {
@@ -43,6 +43,10 @@ def generate(requests):
         'sunday': []
     }
     for request in requests:
+        
+        if request["duration"] > max_duration:
+            continue
+        
         for day in request["availableDays"]:
             
             
