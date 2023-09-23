@@ -9,7 +9,8 @@ input = {
     "f": [
         [60, 70, 60],
         [30, 80, 40],
-        [35, 70, 70]
+        [35, 70, 70],
+        [50, 100, 50],
     ]
 }
 input2 = {
@@ -45,11 +46,11 @@ def maxValue(obj):
     counter = 0
     for weight, vol, value in fruits:
         
-        if vol > volume or weight > maxWeight:
+        if vol > volume or weight > maxWeight and len(basket) == 0:
             continue
         
         #check total volume can fit in basket if can just add
-        if getTotalVolume(basket) + vol < volume and getTotalWeight(basket) + weight < maxWeight:
+        elif getTotalVolume(basket) + vol < volume and getTotalWeight(basket) + weight < maxWeight:
             idx = counter
             dict_key = "f." + str(idx)
             basket[dict_key] = [weight, vol, value]
@@ -66,7 +67,7 @@ def maxValue(obj):
                 
     return sum([basket[key][2] for key in basket])
                 
-#print(maxValue(input))  
+print(maxValue(input))  
 if __name__ == "__main__":
     # Check if the script is being run directly
     if len(sys.argv) != 2:

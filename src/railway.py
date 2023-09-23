@@ -2,15 +2,13 @@ import json
 from typing import Dict, List
 import re
 import sys
-
+test = ["5", "3", "2", "1", "4"]
 
 def railway_combination(length, track_pieces):
   
-  
-
   # Create a memoization table to store the results of previous calculations.
-  #memo = {}
-  combinations = []
+  memo = {}
+  combinations = set()
   def count_combinations(remaining_length, combination):
     #print(remaining_length, combination)
 
@@ -18,9 +16,7 @@ def railway_combination(length, track_pieces):
       return
 
     if remaining_length == 0:
-      if sorted(combination) not in combinations:
-       combinations.append(sorted(combination))
-       return 0
+      combinations.add(tuple(sorted(combination)))
 
     #if remaining_length in memo:
       #return memo[remaining_length]
@@ -41,7 +37,7 @@ def evaluate_railway_combinations(json_input):
   #print(inputs)
 
   for input in inputs:
-    #input = input.split(", ")
+    input = input.split(", ")
     #print(input)
     length = int(input[0])
     num_track_pieces = int(input[1])
@@ -52,10 +48,12 @@ def evaluate_railway_combinations(json_input):
     #print(unique)
     outputs.append(len(output))
     
-
+  #print(json.dumps(outputs))
   return json.dumps(outputs)
 
 
+#print(evaluate_railway_combinations(
+#    ["5, 3, 2, 1, 4", "3, 3, 4, 1, 2", "11, 1, 2"]))
 if __name__ == '__main__':
     
   if len(sys.argv) != 2:
@@ -64,9 +62,9 @@ if __name__ == '__main__':
 
     # Parse the JSON data from the command line argument
   json_input = sys.argv[1]
+  #print(json_input)
   try:
-      data = [list(map(int, item.split(', ')))
-                           for item in json.loads(json_input)]
+      data = json.loads(json_input)
     #print(data)
       result = evaluate_railway_combinations(data)
       print(result)  # Print the result to stdout

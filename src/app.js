@@ -99,6 +99,7 @@ app.post("/railway-builder", (req, res) => {
   //run lazy-developer.py with json input from req.body
   //res.status(200).json({ success: 'Hello Server' });
   requestData = req.body;
+  //console.log(JSON.stringify(requestData));
   //console.log(requestData)
   const pythonProcess = spawn("python", [
     "src/railway.py",
@@ -108,10 +109,9 @@ app.post("/railway-builder", (req, res) => {
   // Handle data from the Python script
   pythonProcess.stdout.on("data", (data) => {
     //console.log(data.toString());
-    const jsonString = data.toString().replace(/'/g, '"');
     //console.log(`Python Output: ${data}`);
     //console.log(`Python Output: ${data.toString()}`);
-    output = JSON.parse(jsonString);
+    output = JSON.parse(data.toString());
     res.json(output);
   });
 
@@ -121,8 +121,6 @@ app.post("/railway-builder", (req, res) => {
     res.status(500).json({ error: "An error occurred" });
   });
 });
-
-
 
 
 

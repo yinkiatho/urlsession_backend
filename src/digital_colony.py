@@ -67,6 +67,8 @@ if __name__ == "__main__":
 
     # Parse the JSON data from the command line argument
     json_data = sys.argv[1]
+    print(json_data)
+    print(json.loads(json_data))
     try:
         #print(json_data)
         res = []
