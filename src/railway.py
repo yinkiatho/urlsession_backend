@@ -52,7 +52,48 @@ def evaluate_railway_combinations(json_input):
   return json.dumps(outputs)
 
 
-#print(evaluate_railway_combinations(
+def count_railway_combinations(length, track_pieces):
+    # Sort the track pieces to ensure equivalence of combinations
+    track_pieces.sort()
+
+    # Create a memoization dictionary to store results
+    memo = {}
+
+    def count_combinations(remaining_length, last_track_piece):
+        if remaining_length == 0:
+            return 1
+        if (remaining_length, last_track_piece) in memo:
+            return memo[(remaining_length, last_track_piece)]
+
+        count = 0
+        for track_piece in track_pieces:
+            if track_piece >= last_track_piece and remaining_length >= track_piece:
+                count += count_combinations(remaining_length -
+                                            track_piece, track_piece)
+
+        memo[(remaining_length, last_track_piece)] = count
+        return count
+
+    return count_combinations(length, 0)
+
+
+def evaluate_railway_combinations2(json_input):
+    inputs = json_input
+    outputs = []
+
+    for input_str in inputs:
+        input_data = input_str.split(", ")
+        length = int(input_data[0])
+        num_track_pieces = int(input_data[1])
+        track_pieces = [int(piece)
+                        for piece in input_data[2:2 + num_track_pieces]]
+        count = count_railway_combinations(length, track_pieces)
+        outputs.append(count)
+
+    return json.dumps(outputs)
+
+
+#print(evaluate_railway_combinations2(
 #    ["5, 3, 2, 1, 4", "3, 3, 4, 1, 2", "11, 1, 2"]))
 if __name__ == '__main__':
     
@@ -66,7 +107,7 @@ if __name__ == '__main__':
   try:
       data = json.loads(json_input)
     #print(data)
-      result = evaluate_railway_combinations(data)
+      result = evaluate_railway_combinations2(data)
       print(result)  # Print the result to stdout
   except Exception as e:
         print(f"Error: {str(e)}")
