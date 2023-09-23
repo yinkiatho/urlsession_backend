@@ -9,7 +9,7 @@ const { PythonShell } = require('python-shell');
 
 const fs = require("fs");
 
-app.use(express.json({ limit: "100mb" }));
+app.use(express.json({ limit: "10mb" }));
 
 app.get('/', (req, res, next) => {
     res.status(200).json({ success: 'Hello Server' });
@@ -29,7 +29,7 @@ app.post("/lazy-developer", (req, res) => {
         const jsonString = data.toString().replace(/'/g, '"');
         //console.log(`Python Output: ${data}`);
         //console.log(`Python Output: ${data.toString()}`);
-        output = JSON.parse(jsonString)
+        output = JSON.parse(data.toString());
         res.json(output);
     });
 
