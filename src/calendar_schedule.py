@@ -68,7 +68,7 @@ def generate(requests):
                 continue
     
     #filter out only days with lessons, keeping only keyid in the list
-    available_days = {k: [x[0] for x in v] for k, v in available_days.items() if len(v) > 0}
+    available_days = {k: [x[0] for x in v] for k, v in available_days.items()}
     return available_days
 print(generate(test))
 
